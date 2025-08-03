@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box, Container } from '@mui/material';
@@ -74,7 +74,8 @@ function App() {
           <Navigation />
           <Container maxWidth="lg" sx={{ py: 4 }}>
             <Routes>
-              <Route path="/" element={<GeneratePortPage />} />
+              <Route path="/" element={<Navigate to="/generate" replace />} />
+              <Route path="/generate" element={<GeneratePortPage />} />
               <Route path="/used-ports" element={<UsedPortsPage />} />
             </Routes>
           </Container>

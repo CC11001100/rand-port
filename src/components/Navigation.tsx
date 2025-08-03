@@ -22,9 +22,9 @@ const Navigation: React.FC = () => {
           <Button
             color="inherit"
             startIcon={<ShuffleIcon />}
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/generate')}
             sx={{
-              backgroundColor: location.pathname === '/' ? 'rgba(255,255,255,0.1)' : 'transparent',
+              backgroundColor: location.pathname === '/generate' ? 'rgba(255,255,255,0.1)' : 'transparent',
             }}
           >
             生成端口
