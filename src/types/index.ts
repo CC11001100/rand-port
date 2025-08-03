@@ -19,7 +19,6 @@ export interface PortGenerationConfig {
 export interface PortFilter {
   portRange?: PortRange;
   keyword?: string;
-  note?: string;
   dateRange?: {
     start: Date;
     end: Date;

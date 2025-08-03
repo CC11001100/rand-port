@@ -22,6 +22,7 @@ const GeneratePortPage: React.FC = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
+  const [copyMessage, setCopyMessage] = useState<string | null>(null);
 
   // 从localStorage加载端口范围设置
   useEffect(() => {
@@ -97,6 +98,10 @@ const GeneratePortPage: React.FC = () => {
     }
   };
 
+  const handleCopySuccess = (message: string) => {
+    setCopyMessage(message);
+  };
+
   const availablePortCount = maxPort - minPort + 1;
 
   return (
@@ -108,11 +113,8 @@ const GeneratePortPage: React.FC = () => {
           component="h1"
           gutterBottom
           sx={{
-            fontWeight: 700,
-            background: 'linear-gradient(45deg, #1976d2 30%, #42a5f5 90%)',
-            backgroundClip: 'text',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
+            fontWeight: 600,
+            color: 'text.primary',
             mb: 2
           }}
         >
@@ -132,20 +134,18 @@ const GeneratePortPage: React.FC = () => {
         {/* 左侧：配置区域 */}
         <Box sx={{ flex: { xs: '1', md: '0 0 40%' } }}>
           <Paper
-            elevation={2}
+            elevation={1}
             sx={{
               p: 4,
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)',
-              border: '1px solid rgba(255,255,255,0.2)'
+              backgroundColor: '#ffffff',
             }}
           >
             <Typography
               variant="h5"
               gutterBottom
               sx={{
-                fontWeight: 600,
-                color: 'primary.main',
+                fontWeight: 500,
+                color: 'text.primary',
                 mb: 3
               }}
             >
@@ -167,8 +167,9 @@ const GeneratePortPage: React.FC = () => {
                 justifyContent: 'space-between',
                 mt: 2,
                 p: 2,
-                bgcolor: 'rgba(255,255,255,0.7)',
-                borderRadius: 2
+                bgcolor: '#f5f5f5',
+                borderRadius: 1,
+                border: '1px solid #e0e0e0'
               }}>
                 <Typography variant="body1" sx={{ fontWeight: 500 }}>
                   最小值: {minPort}
@@ -210,20 +211,19 @@ const GeneratePortPage: React.FC = () => {
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
             {/* 生成操作区 */}
             <Paper
-              elevation={3}
+              elevation={1}
               sx={{
                 p: 4,
-                borderRadius: 3,
                 textAlign: 'center',
-                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-                color: 'white'
+                backgroundColor: '#f5f5f5',
+                border: '1px solid #e0e0e0'
               }}
             >
               <Typography
                 variant="h5"
                 gutterBottom
                 sx={{
-                  fontWeight: 600,
+                  fontWeight: 500,
                   mb: 3
                 }}
               >
@@ -238,17 +238,17 @@ const GeneratePortPage: React.FC = () => {
             {/* 结果显示区 */}
             {generatedPorts.length > 0 && (
               <Paper
-                elevation={2}
+                elevation={1}
                 sx={{
                   p: 4,
-                  borderRadius: 3,
-                  background: 'linear-gradient(135deg, #a8edea 0%, #fed6e3 100%)'
+                  backgroundColor: '#ffffff'
                 }}
               >
                 <PortResultDisplay
                   ports={generatedPorts}
                   onSave={handleSavePorts}
                   onRegenerate={handleGeneratePorts}
+                  onCopySuccess={handleCopySuccess}
                 />
               </Paper>
             )}
@@ -275,6 +275,17 @@ const GeneratePortPage: React.FC = () => {
       >
         <Alert severity="success" onClose={() => setSuccess(null)}>
           {success}
+        </Alert>
+      </Snackbar>
+
+      {/* 复制成功提示 */}
+      <Snackbar
+        open={!!copyMessage}
+        autoHideDuration={3000}
+        onClose={() => setCopyMessage(null)}
+      >
+        <Alert severity="info" onClose={() => setCopyMessage(null)}>
+          {copyMessage}
         </Alert>
       </Snackbar>
     </Box>

@@ -24,31 +24,27 @@ const GenerateButton: React.FC<GenerateButtonProps> = ({
         disabled={isGenerating}
         startIcon={<ShuffleIcon sx={{ fontSize: '2rem' }} />}
         sx={{
-          py: 3,
-          px: 6,
-          fontSize: '1.3rem',
-          fontWeight: 700,
-          minWidth: 280,
-          minHeight: 80,
-          borderRadius: 6,
-          background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
-          boxShadow: '0 8px 32px rgba(254, 107, 139, 0.3)',
+          py: 1.5,
+          px: 3,
+          fontSize: '1rem',
+          fontWeight: 500,
+          minWidth: 160,
+          minHeight: 44,
+          borderRadius: 2,
+          backgroundColor: 'primary.main',
           color: 'white',
-          border: '2px solid rgba(255,255,255,0.3)',
           '&:hover': {
-            background: 'linear-gradient(45deg, #FE6B8B 60%, #FF8E53 100%)',
-            boxShadow: '0 12px 40px rgba(254, 107, 139, 0.4)',
-            transform: 'translateY(-2px)',
+            backgroundColor: 'primary.dark',
+            transform: 'translateY(-1px)',
           },
           '&:active': {
             transform: 'translateY(0px)',
           },
           '&:disabled': {
-            background: 'rgba(255,255,255,0.3)',
-            color: 'rgba(255,255,255,0.7)',
-            boxShadow: 'none',
+            backgroundColor: 'action.disabled',
+            color: 'text.disabled',
           },
-          transition: 'all 0.3s ease-in-out'
+          transition: 'all 0.2s ease-in-out'
         }}
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>

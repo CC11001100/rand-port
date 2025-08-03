@@ -13,23 +13,34 @@ interface PortResultDisplayProps {
   ports: number[];
   onSave: (ports: number[]) => void;
   onRegenerate: () => void;
+  onCopySuccess?: (message: string) => void;
 }
 
 const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
   ports,
   onSave,
-  onRegenerate
+  onRegenerate,
+  onCopySuccess
 }) => {
   const handleCopyToClipboard = () => {
     const portNumbers = ports.join(', ');
     navigator.clipboard.writeText(portNumbers).then(() => {
-      // 可以添加成功提示
+      onCopySuccess?.('端口号已复制到剪切板');
     }).catch(() => {
-      // 可以添加错误提示
+      onCopySuccess?.('复制失败，请手动复制');
     });
   };
 
   const handleSave = () => {
+    // 先复制端口到剪切板
+    const portNumbers = ports.join(', ');
+    navigator.clipboard.writeText(portNumbers).then(() => {
+      onCopySuccess?.('端口已保存并复制到剪切板');
+    }).catch(() => {
+      onCopySuccess?.('端口已保存，但复制到剪切板失败');
+    });
+
+    // 然后保存端口
     onSave(ports);
   };
 
@@ -39,8 +50,8 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
         variant="h5"
         gutterBottom
         sx={{
-          fontWeight: 600,
-          color: 'primary.main',
+          fontWeight: 500,
+          color: 'text.primary',
           textAlign: 'center',
           mb: 3
         }}
@@ -62,10 +73,10 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           display: 'flex',
           flexWrap: 'wrap',
           gap: 2,
-          p: 4,
-          bgcolor: 'rgba(255,255,255,0.8)',
-          borderRadius: 3,
-          border: '2px solid rgba(255,255,255,0.5)',
+          p: 3,
+          bgcolor: '#f8f9fa',
+          borderRadius: 1,
+          border: '1px solid #e0e0e0',
           justifyContent: 'center'
         }}>
           {ports.map((port, index) => (
@@ -75,23 +86,22 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
               variant="filled"
               size="medium"
               sx={{
-                fontSize: '1.4rem',
-                fontWeight: 'bold',
-                height: '56px',
-                minWidth: '100px',
-                background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
-                color: 'white',
-                boxShadow: '0 4px 16px rgba(33, 150, 243, 0.3)',
+                fontSize: '1.2rem',
+                fontWeight: '500',
+                height: '48px',
+                minWidth: '90px',
+                backgroundColor: '#f5f5f5',
+                color: 'text.primary',
+                border: '1px solid #e0e0e0',
                 '& .MuiChip-label': {
-                  fontSize: '1.4rem',
-                  fontWeight: 'bold',
-                  px: 3
+                  fontSize: '1.2rem',
+                  fontWeight: '500',
+                  px: 2
                 },
                 '&:hover': {
-                  background: 'linear-gradient(45deg, #1976D2 30%, #1CB5E0 90%)',
-                  transform: 'scale(1.05)',
-                  boxShadow: '0 6px 20px rgba(33, 150, 243, 0.4)',
-                  transition: 'all 0.3s ease-in-out'
+                  backgroundColor: '#eeeeee',
+                  transform: 'translateY(-1px)',
+                  transition: 'all 0.2s ease-in-out'
                 }
               }}
             />
@@ -110,19 +120,16 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           variant="outlined"
           startIcon={<ContentCopyIcon />}
           onClick={handleCopyToClipboard}
-          size="large"
+          size="medium"
           sx={{
-            borderRadius: 3,
             px: 3,
-            py: 1.5,
-            fontWeight: 600,
-            borderColor: 'primary.main',
-            color: 'primary.main',
+            py: 1,
+            fontWeight: 500,
+            borderColor: '#bdbdbd',
+            color: 'text.primary',
             '&:hover': {
-              borderColor: 'primary.dark',
-              backgroundColor: 'primary.main',
-              color: 'white',
-              transform: 'translateY(-1px)',
+              borderColor: '#9e9e9e',
+              backgroundColor: '#f5f5f5',
             }
           }}
         >
@@ -133,19 +140,16 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           variant="outlined"
           startIcon={<ShuffleIcon />}
           onClick={onRegenerate}
-          size="large"
+          size="medium"
           sx={{
-            borderRadius: 3,
             px: 3,
-            py: 1.5,
-            fontWeight: 600,
-            borderColor: 'secondary.main',
-            color: 'secondary.main',
+            py: 1,
+            fontWeight: 500,
+            borderColor: '#bdbdbd',
+            color: 'text.primary',
             '&:hover': {
-              borderColor: 'secondary.dark',
-              backgroundColor: 'secondary.main',
-              color: 'white',
-              transform: 'translateY(-1px)',
+              borderColor: '#9e9e9e',
+              backgroundColor: '#f5f5f5',
             }
           }}
         >
@@ -158,15 +162,14 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           onClick={handleSave}
           size="large"
           sx={{
-            borderRadius: 3,
-            px: 4,
-            py: 1.5,
-            fontWeight: 600,
-            background: 'linear-gradient(45deg, #4CAF50 30%, #8BC34A 90%)',
-            boxShadow: '0 4px 16px rgba(76, 175, 80, 0.3)',
+            borderRadius: 2,
+            px: 3,
+            py: 1,
+            fontWeight: 500,
+            backgroundColor: '#e0e0e0',
+            color: 'text.primary',
             '&:hover': {
-              background: 'linear-gradient(45deg, #388E3C 30%, #689F38 90%)',
-              boxShadow: '0 6px 20px rgba(76, 175, 80, 0.4)',
+              backgroundColor: '#d5d5d5',
               transform: 'translateY(-1px)',
             }
           }}

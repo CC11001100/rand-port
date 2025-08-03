@@ -7,18 +7,22 @@ import Navigation from './components/Navigation';
 import GeneratePortPage from './components/GeneratePortPage';
 import UsedPortsPage from './components/UsedPortsPage';
 
-// 创建简洁的主题
+// 创建简洁朴素的主题
 const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#1976d2',
+      main: '#9e9e9e', // 更淡的灰色，非常朴素
     },
     secondary: {
-      main: '#dc004e',
+      main: '#bdbdbd', // 更淡的灰色
     },
     background: {
-      default: '#fafafa',
+      default: '#ffffff', // 纯白色背景，最朴素
+    },
+    text: {
+      primary: '#424242', // 深灰色文字
+      secondary: '#757575', // 中等灰色文字
     },
   },
   typography: {
@@ -29,15 +33,20 @@ const theme = createTheme({
       styleOverrides: {
         root: {
           textTransform: 'none',
-          borderRadius: 8,
+          borderRadius: 2, // 非常小的圆角，更高雅
+          boxShadow: 'none', // 去除阴影
+          '&:hover': {
+            boxShadow: '0 1px 2px rgba(0,0,0,0.08)', // 更轻微的悬停阴影
+          },
         },
       },
     },
     MuiCard: {
       styleOverrides: {
         root: {
-          borderRadius: 12,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+          borderRadius: 4, // 更小的圆角，更朴素
+          boxShadow: '0 1px 2px rgba(0,0,0,0.05)', // 更轻的阴影
+          border: '1px solid #e0e0e0', // 添加边框
         },
       },
     },

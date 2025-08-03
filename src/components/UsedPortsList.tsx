@@ -54,14 +54,8 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       }
       if (filter.keyword) {
         const keyword = filter.keyword.toLowerCase();
-        if (!port.port.toString().includes(keyword) && 
-            !(port.actionId && port.actionId.toLowerCase().includes(keyword)) &&
-            !(port.note && port.note.toLowerCase().includes(keyword))) {
-          return false;
-        }
-      }
-      if (filter.note) {
-        if (!port.note || !port.note.toLowerCase().includes(filter.note.toLowerCase())) {
+        if (!port.port.toString().includes(keyword) &&
+            !(port.actionId && port.actionId.toLowerCase().includes(keyword))) {
           return false;
         }
       }
@@ -185,19 +179,12 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
           <Typography variant="h6" gutterBottom>
             筛选和排序
           </Typography>
-          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr 1fr' }, gap: 2 }}>
+          <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }, gap: 2 }}>
             <TextField
               fullWidth
               label="关键字搜索"
               value={filter.keyword || ''}
               onChange={(e) => setFilter({ ...filter, keyword: e.target.value })}
-              size="small"
-            />
-            <TextField
-              fullWidth
-              label="备注搜索"
-              value={filter.note || ''}
-              onChange={(e) => setFilter({ ...filter, note: e.target.value })}
               size="small"
             />
             <FormControl fullWidth size="small">
