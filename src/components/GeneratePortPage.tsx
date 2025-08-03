@@ -179,6 +179,7 @@ const GeneratePortPage: React.FC = () => {
           <PortResultDisplay
             ports={generatedPorts}
             onSave={handleSavePorts}
+            onRegenerate={handleGeneratePorts}
           />
         )}
       </Box>

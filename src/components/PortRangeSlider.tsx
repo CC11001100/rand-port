@@ -2,7 +2,6 @@ import React from 'react';
 import {
   Box,
   Slider,
-  Typography,
   Button,
   ButtonGroup
 } from '@mui/material';

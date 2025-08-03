@@ -14,7 +14,7 @@ import {
   InputLabel,
   Select,
   MenuItem,
-  Grid,
+
   Chip,
   Dialog,
   DialogTitle,
@@ -23,13 +23,10 @@ import {
   Alert,
   Snackbar
 } from '@mui/material';
-import { 
-  Delete, 
-  Download, 
-  Upload, 
-  Sort,
-  FilterList,
-  Edit
+import {
+  Delete,
+  Download,
+  Upload
 } from '@mui/icons-material';
 import { IndexedDBService } from '../services/IndexedDBService';
 import { PortRecord, PortFilter, PortSort } from '../types';
@@ -280,13 +277,20 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
               >
                 <ListItemText
                   primary={
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                      <Typography variant="h6">
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                      <Typography
+                        variant="h5"
+                        sx={{
+                          fontWeight: 'bold',
+                          color: 'primary.main',
+                          fontSize: '1.4rem'
+                        }}
+                      >
                         端口 {port.port}
                       </Typography>
-                      <Chip 
-                        label={port.actionId ? port.actionId.slice(0, 8) : 'N/A'} 
-                        size="small" 
+                      <Chip
+                        label={port.actionId ? port.actionId.slice(0, 8) : 'N/A'}
+                        size="small"
                         variant="outlined"
                       />
                     </Box>

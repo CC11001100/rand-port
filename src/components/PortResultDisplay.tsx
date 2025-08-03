@@ -8,15 +8,18 @@ import {
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import SaveIcon from '@mui/icons-material/Save';
+import ShuffleIcon from '@mui/icons-material/Shuffle';
 
 interface PortResultDisplayProps {
   ports: number[];
   onSave: (ports: number[]) => void;
+  onRegenerate: () => void;
 }
 
 const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
   ports,
-  onSave
+  onSave,
+  onRegenerate
 }) => {
   const handleCopyToClipboard = () => {
     const portNumbers = ports.join(', ');
@@ -42,20 +45,38 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           已生成 {ports.length} 个随机端口:
         </Typography>
         
-        <Box sx={{ 
-          display: 'flex', 
-          flexWrap: 'wrap', 
-          gap: 1, 
-          p: 2, 
-          bgcolor: 'grey.50', 
-          borderRadius: 1 
+        <Box sx={{
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 2,
+          p: 3,
+          bgcolor: 'grey.50',
+          borderRadius: 2
         }}>
           {ports.map((port, index) => (
             <Chip
               key={index}
               label={port}
-              variant="outlined"
-              size="small"
+              variant="filled"
+              size="medium"
+              sx={{
+                fontSize: '1.2rem',
+                fontWeight: 'bold',
+                height: '48px',
+                minWidth: '80px',
+                backgroundColor: 'primary.main',
+                color: 'white',
+                '& .MuiChip-label': {
+                  fontSize: '1.2rem',
+                  fontWeight: 'bold',
+                  px: 2
+                },
+                '&:hover': {
+                  backgroundColor: 'primary.dark',
+                  transform: 'scale(1.05)',
+                  transition: 'all 0.2s ease-in-out'
+                }
+              }}
             />
           ))}
         </Box>
@@ -63,23 +84,33 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
 
       <Divider sx={{ my: 2 }} />
 
-      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap' }}>
+      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
         <Button
           variant="outlined"
           startIcon={<ContentCopyIcon />}
           onClick={handleCopyToClipboard}
-          size="small"
+          size="medium"
         >
           复制端口
         </Button>
-        
+
+        <Button
+          variant="outlined"
+          startIcon={<ShuffleIcon />}
+          onClick={onRegenerate}
+          size="medium"
+          color="secondary"
+        >
+          换一个
+        </Button>
+
         <Button
           variant="contained"
           startIcon={<SaveIcon />}
           onClick={handleSave}
-          size="small"
+          size="medium"
         >
-          保存到数据库
+          我用了
         </Button>
       </Box>
     </Box>
