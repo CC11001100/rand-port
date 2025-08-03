@@ -3,8 +3,7 @@ import {
   Box,
   Typography,
   Button,
-  Chip,
-  Divider
+  Chip
 } from '@mui/material';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import SaveIcon from '@mui/icons-material/Save';
@@ -36,22 +35,38 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
 
   return (
     <Box>
-      <Typography variant="h6" gutterBottom>
+      <Typography
+        variant="h5"
+        gutterBottom
+        sx={{
+          fontWeight: 600,
+          color: 'primary.main',
+          textAlign: 'center',
+          mb: 3
+        }}
+      >
         生成结果
       </Typography>
-      
-      <Box sx={{ mb: 3 }}>
-        <Typography variant="body2" color="text.secondary" gutterBottom>
-          已生成 {ports.length} 个随机端口:
+
+      <Box sx={{ mb: 4 }}>
+        <Typography
+          variant="h6"
+          color="text.secondary"
+          gutterBottom
+          sx={{ textAlign: 'center', mb: 3 }}
+        >
+          已生成 {ports.length} 个随机端口
         </Typography>
-        
+
         <Box sx={{
           display: 'flex',
           flexWrap: 'wrap',
           gap: 2,
-          p: 3,
-          bgcolor: 'grey.50',
-          borderRadius: 2
+          p: 4,
+          bgcolor: 'rgba(255,255,255,0.8)',
+          borderRadius: 3,
+          border: '2px solid rgba(255,255,255,0.5)',
+          justifyContent: 'center'
         }}>
           {ports.map((port, index) => (
             <Chip
@@ -60,21 +75,23 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
               variant="filled"
               size="medium"
               sx={{
-                fontSize: '1.2rem',
+                fontSize: '1.4rem',
                 fontWeight: 'bold',
-                height: '48px',
-                minWidth: '80px',
-                backgroundColor: 'primary.main',
+                height: '56px',
+                minWidth: '100px',
+                background: 'linear-gradient(45deg, #2196F3 30%, #21CBF3 90%)',
                 color: 'white',
+                boxShadow: '0 4px 16px rgba(33, 150, 243, 0.3)',
                 '& .MuiChip-label': {
-                  fontSize: '1.2rem',
+                  fontSize: '1.4rem',
                   fontWeight: 'bold',
-                  px: 2
+                  px: 3
                 },
                 '&:hover': {
-                  backgroundColor: 'primary.dark',
+                  background: 'linear-gradient(45deg, #1976D2 30%, #1CB5E0 90%)',
                   transform: 'scale(1.05)',
-                  transition: 'all 0.2s ease-in-out'
+                  boxShadow: '0 6px 20px rgba(33, 150, 243, 0.4)',
+                  transition: 'all 0.3s ease-in-out'
                 }
               }}
             />
@@ -82,14 +99,32 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
         </Box>
       </Box>
 
-      <Divider sx={{ my: 2 }} />
-
-      <Box sx={{ display: 'flex', gap: 2, flexWrap: 'wrap', justifyContent: 'center' }}>
+      <Box sx={{
+        display: 'flex',
+        gap: 2,
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        mt: 3
+      }}>
         <Button
           variant="outlined"
           startIcon={<ContentCopyIcon />}
           onClick={handleCopyToClipboard}
-          size="medium"
+          size="large"
+          sx={{
+            borderRadius: 3,
+            px: 3,
+            py: 1.5,
+            fontWeight: 600,
+            borderColor: 'primary.main',
+            color: 'primary.main',
+            '&:hover': {
+              borderColor: 'primary.dark',
+              backgroundColor: 'primary.main',
+              color: 'white',
+              transform: 'translateY(-1px)',
+            }
+          }}
         >
           复制端口
         </Button>
@@ -98,8 +133,21 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           variant="outlined"
           startIcon={<ShuffleIcon />}
           onClick={onRegenerate}
-          size="medium"
-          color="secondary"
+          size="large"
+          sx={{
+            borderRadius: 3,
+            px: 3,
+            py: 1.5,
+            fontWeight: 600,
+            borderColor: 'secondary.main',
+            color: 'secondary.main',
+            '&:hover': {
+              borderColor: 'secondary.dark',
+              backgroundColor: 'secondary.main',
+              color: 'white',
+              transform: 'translateY(-1px)',
+            }
+          }}
         >
           换一个
         </Button>
@@ -108,7 +156,20 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           variant="contained"
           startIcon={<SaveIcon />}
           onClick={handleSave}
-          size="medium"
+          size="large"
+          sx={{
+            borderRadius: 3,
+            px: 4,
+            py: 1.5,
+            fontWeight: 600,
+            background: 'linear-gradient(45deg, #4CAF50 30%, #8BC34A 90%)',
+            boxShadow: '0 4px 16px rgba(76, 175, 80, 0.3)',
+            '&:hover': {
+              background: 'linear-gradient(45deg, #388E3C 30%, #689F38 90%)',
+              boxShadow: '0 6px 20px rgba(76, 175, 80, 0.4)',
+              transform: 'translateY(-1px)',
+            }
+          }}
         >
           我用了
         </Button>
