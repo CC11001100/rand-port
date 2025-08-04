@@ -11,12 +11,12 @@ import PortRangeSlider from './PortRangeSlider';
 import PortCountSelector from './PortCountSelector';
 import GenerateButton from './GenerateButton';
 import PortResultDisplay from './PortResultDisplay';
-import { IndexedDBService } from '../services/IndexedDBService';
-import { PortRecord } from '../types';
+import { PortRecord, PortRange } from '../types';
+import { PortGenerator } from '../utils/portGenerator';
 
 const GeneratePortPage: React.FC = () => {
   const [minPort, setMinPort] = useState(3000);
-  const [maxPort, setMaxPort] = useState(65535);
+  const [maxPort, setMaxPort] = useState(65536);
   const [portCount, setPortCount] = useState(1);
   const [generatedPorts, setGeneratedPorts] = useState<number[]>([]);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -57,30 +57,17 @@ const GeneratePortPage: React.FC = () => {
   const handleGeneratePorts = async () => {
     setIsGenerating(true);
     setError(null);
-    
+    setSuccess(null);
+
     try {
-      const db = new IndexedDBService();
-      await db.init();
-      
-      const usedPorts = await db.getPorts();
-      const usedPortNumbers = usedPorts.map((record: PortRecord) => record.port);
-      const availablePorts: number[] = [];
-      
-      // 生成可用端口
-      for (let i = 0; i < portCount * 10 && availablePorts.length < portCount; i++) {
-        const port = Math.floor(Math.random() * (maxPort - minPort + 1)) + minPort;
-        if (!usedPortNumbers.includes(port) && !availablePorts.includes(port)) {
-          availablePorts.push(port);
-        }
-      }
-      
-      if (availablePorts.length < portCount) {
-        setError(`在指定范围内只能找到 ${availablePorts.length} 个可用端口`);
-      } else {
-        const selectedPorts = availablePorts.slice(0, portCount);
-        setGeneratedPorts(selectedPorts);
-        setSuccess(`成功生成 ${portCount} 个随机端口`);
-      }
+      // 使用更高效的PortGenerator算法
+      const range: PortRange = { min: minPort, max: maxPort };
+      const portRecords = await PortGenerator.generateRandomPorts(range, portCount);
+
+      // 提取端口号
+      const selectedPorts = portRecords.map(record => record.port);
+      setGeneratedPorts(selectedPorts);
+      setSuccess(`成功生成 ${portCount} 个随机端口`);
     } catch (err) {
       setError(err instanceof Error ? err.message : '生成端口时发生错误');
     } finally {
@@ -90,9 +77,6 @@ const GeneratePortPage: React.FC = () => {
 
   const handleSavePorts = async (ports: number[]) => {
     try {
-      const db = new IndexedDBService();
-      await db.init();
-      
       const actionId = uuidv4();
       const portRecords: PortRecord[] = ports.map(port => ({
         id: uuidv4(),
@@ -101,11 +85,10 @@ const GeneratePortPage: React.FC = () => {
         usedAt: new Date(),
         note: ''
       }));
-      
-      for (const record of portRecords) {
-        await db.addPort(record);
-      }
-      
+
+      // 使用PortGenerator的方法保存端口
+      await PortGenerator.markPortsAsUsed(portRecords);
+
       setGeneratedPorts([]);
       setSuccess(`已保存 ${ports.length} 个端口到数据库`);
     } catch (err) {

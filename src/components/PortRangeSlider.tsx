@@ -22,8 +22,8 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
   const presetRanges = [
     { label: '1', min: 1, max: 1024 },
     { label: '1024', min: 1024, max: 3000 },
-    { label: '3000', min: 3000, max: 65535 },
-    { label: '65535', min: 1, max: 65535 }
+    { label: '3000', min: 3000, max: 65536 },
+    { label: '65536', min: 1, max: 65536 }
   ];
 
   const handlePresetClick = (min: number, max: number) => {
@@ -68,7 +68,7 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
             onMaxPortChange(max);
           }}
           min={1}
-          max={65535}
+          max={65536}
           step={1}
           valueLabelDisplay="auto"
           disableSwap

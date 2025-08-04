@@ -15,7 +15,7 @@ export class LocalStorageService {
         // 如果解析失败，返回默认值
       }
     }
-    return { min: 3000, max: 65535 };
+    return { min: 3000, max: 65536 };
   }
 
   static setPortRange(range: PortRange): void {
