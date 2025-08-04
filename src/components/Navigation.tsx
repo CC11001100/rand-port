@@ -3,6 +3,7 @@ import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import ListIcon from '@mui/icons-material/List';
+import GitHubIcon from './GitHubIcon';
 
 const Navigation: React.FC = () => {
   const navigate = useNavigate();
@@ -18,7 +19,7 @@ const Navigation: React.FC = () => {
           </Typography>
         </Typography>
         
-        <Box sx={{ display: 'flex', gap: 1 }}>
+        <Box sx={{ display: 'flex', gap: 1, alignItems: 'center' }}>
           <Button
             color="inherit"
             startIcon={<ShuffleIcon />}
@@ -39,6 +40,7 @@ const Navigation: React.FC = () => {
           >
             已使用端口
           </Button>
+          <GitHubIcon />
         </Box>
       </Toolbar>
     </AppBar>

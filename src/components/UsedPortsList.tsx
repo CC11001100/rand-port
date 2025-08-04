@@ -283,16 +283,16 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
                     </Box>
                   }
                   secondary={
-                    <Box>
-                      <Typography variant="body2" color="text.secondary">
+                    <React.Fragment>
+                      <Typography variant="body2" color="text.secondary" component="span" display="block">
                         使用时间: {new Date(port.usedAt).toLocaleString()}
                       </Typography>
                       {port.note && (
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2" color="text.secondary" component="span" display="block">
                           备注: {port.note}
                         </Typography>
                       )}
-                    </Box>
+                    </React.Fragment>
                   }
                 />
               </ListItem>
