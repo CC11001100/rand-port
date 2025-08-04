@@ -97,9 +97,9 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       await db.init();
       await db.removePort(id);
       onPortsChange();
-      setSuccess(t('usedPortsList.deleteSuccess'));
+      setSuccess(t('usedPortsList.deleteSuccess') as string);
     } catch (error) {
-      setError(t('usedPortsList.deleteError'));
+      setError(t('usedPortsList.deleteError') as string);
       console.error('Delete port failed:', error);
     }
   };
@@ -113,7 +113,7 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
     link.download = `used-ports-${new Date().toISOString().split('T')[0]}.json`;
     link.click();
     URL.revokeObjectURL(url);
-    setSuccess(t('usedPortsList.exportSuccess'));
+    setSuccess(t('usedPortsList.exportSuccess') as string);
   };
 
   const handleImport = async () => {
@@ -138,9 +138,9 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       setImportDialogOpen(false);
       setImportData('');
       onPortsChange();
-      setSuccess(t('usedPortsList.importSuccess', { count: data.length }));
+      setSuccess(t('usedPortsList.importSuccess', { count: data.length }) as string);
     } catch (error) {
-      setError(t('usedPortsList.importFormatError'));
+      setError(t('usedPortsList.importFormatError') as string);
     }
   };
 
@@ -150,10 +150,10 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       await db.init();
       await db.clearAll();
       onPortsChange();
-      setSuccess(t('usedPortsList.clearSuccess'));
+      setSuccess(t('usedPortsList.clearSuccess') as string);
       setConfirmDialogOpen(false);
     } catch (error) {
-      setError(t('usedPortsList.clearError'));
+      setError(t('usedPortsList.clearError') as string);
       console.error('Clear database failed:', error);
       setConfirmDialogOpen(false);
     }

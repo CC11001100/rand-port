@@ -69,9 +69,9 @@ const GeneratePortPage: React.FC = () => {
       // 提取端口号
       const selectedPorts = portRecords.map(record => record.port);
       setGeneratedPorts(selectedPorts);
-      setSuccess(t('generatePage.generateSuccess', { count: portCount }));
+      setSuccess(t('generatePage.generateSuccess', { count: portCount }) as string);
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('generatePage.generateError'));
+      setError(err instanceof Error ? err.message : t('generatePage.generateError') as string);
     } finally {
       setIsGenerating(false);
     }
@@ -92,9 +92,9 @@ const GeneratePortPage: React.FC = () => {
       await PortGenerator.markPortsAsUsed(portRecords);
 
       setGeneratedPorts([]);
-      setSuccess(t('generatePage.saveSuccess', { count: ports.length }));
+      setSuccess(t('generatePage.saveSuccess', { count: ports.length }) as string);
     } catch (err) {
-      setError(err instanceof Error ? err.message : t('generatePage.saveError'));
+      setError(err instanceof Error ? err.message : t('generatePage.saveError') as string);
     }
   };
 
@@ -183,7 +183,7 @@ const GeneratePortPage: React.FC = () => {
                 color="text.secondary"
                 sx={{ mt: 1, textAlign: 'center' }}
               >
-                {t('generatePage.availablePorts', { count: availablePortCount.toLocaleString() })}
+                {t('generatePage.availablePorts', { count: availablePortCount })}
               </Typography>
             </Box>
 

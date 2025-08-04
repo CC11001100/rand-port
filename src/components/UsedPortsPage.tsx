@@ -25,7 +25,7 @@ const UsedPortsPage: React.FC = () => {
       const allPorts = await db.getPorts();
       setPorts(allPorts);
     } catch (err) {
-      setError(t('usedPortsPage.loadError'));
+      setError(t('usedPortsPage.loadError') as string);
       console.error('Load ports failed:', err);
     } finally {
       setLoading(false);
