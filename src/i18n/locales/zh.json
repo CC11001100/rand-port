@@ -48,7 +48,8 @@
   "usedPortsPage": {
     "title": "已使用端口管理",
     "subtitle": "查看和管理您已使用的端口记录",
-    "loadError": "加载端口数据失败"
+    "loadError": "加载端口数据失败",
+    "dataStorageNotice": "数据存储说明：您的端口记录仅存储在当前浏览器本地，用于避免重复生成相同端口。如需在不同设备间同步数据，请使用导入/导出功能手动传输。"
   },
   "usedPortsList": {
     "title": "已使用端口列表 ({{count}}个)",

@@ -48,7 +48,8 @@
   "usedPortsPage": {
     "title": "Used Ports Management",
     "subtitle": "View and manage your used port records",
-    "loadError": "Failed to load port data"
+    "loadError": "Failed to load port data",
+    "dataStorageNotice": "Data Storage Notice: Your port records are stored locally in your current browser only, to avoid generating duplicate ports. To sync data across different devices, please use the import/export feature to manually transfer data."
   },
   "usedPortsList": {
     "title": "Used Ports List ({{count}} items)",

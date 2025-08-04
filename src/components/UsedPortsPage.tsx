@@ -60,6 +60,17 @@ const UsedPortsPage: React.FC = () => {
         </Typography>
       </Box>
 
+      {/* 数据存储说明 */}
+      <Alert
+        severity="info"
+        sx={{ mb: 3, mx: 'auto', maxWidth: '800px' }}
+        icon={false}
+      >
+        <Typography variant="body2">
+          {t('usedPortsPage.dataStorageNotice')}
+        </Typography>
+      </Alert>
+
       <UsedPortsList
         ports={ports}
         onPortsChange={handlePortsChange}
