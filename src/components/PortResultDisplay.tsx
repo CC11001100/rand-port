@@ -74,7 +74,7 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           flexWrap: 'wrap',
           gap: 2,
           p: 3,
-          bgcolor: '#f8f9fa',
+          bgcolor: '#fafafa',
           borderRadius: 1,
           border: '1px solid #e0e0e0',
           justifyContent: 'center'
@@ -90,16 +90,16 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
                 fontWeight: '500',
                 height: '48px',
                 minWidth: '90px',
-                backgroundColor: '#f5f5f5',
+                backgroundColor: '#ffffff',
                 color: 'text.primary',
-                border: '1px solid #e0e0e0',
+                border: '2px solid #212121',
                 '& .MuiChip-label': {
                   fontSize: '1.2rem',
                   fontWeight: '500',
                   px: 2
                 },
                 '&:hover': {
-                  backgroundColor: '#eeeeee',
+                  backgroundColor: '#f5f5f5',
                   transform: 'translateY(-1px)',
                   transition: 'all 0.2s ease-in-out'
                 }
@@ -125,10 +125,10 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
             px: 3,
             py: 1,
             fontWeight: 500,
-            borderColor: '#bdbdbd',
+            borderColor: '#212121',
             color: 'text.primary',
             '&:hover': {
-              borderColor: '#9e9e9e',
+              borderColor: '#212121',
               backgroundColor: '#f5f5f5',
             }
           }}
@@ -145,10 +145,10 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
             px: 3,
             py: 1,
             fontWeight: 500,
-            borderColor: '#bdbdbd',
+            borderColor: '#212121',
             color: 'text.primary',
             '&:hover': {
-              borderColor: '#9e9e9e',
+              borderColor: '#212121',
               backgroundColor: '#f5f5f5',
             }
           }}
@@ -166,10 +166,10 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
             px: 3,
             py: 1,
             fontWeight: 500,
-            backgroundColor: '#e0e0e0',
-            color: 'text.primary',
+            backgroundColor: '#212121',
+            color: '#ffffff',
             '&:hover': {
-              backgroundColor: '#d5d5d5',
+              backgroundColor: '#424242',
               transform: 'translateY(-1px)',
             }
           }}

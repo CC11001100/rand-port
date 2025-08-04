@@ -7,22 +7,22 @@ import Navigation from './components/Navigation';
 import GeneratePortPage from './components/GeneratePortPage';
 import UsedPortsPage from './components/UsedPortsPage';
 
-// 创建简洁朴素的主题
+// 创建简洁的黑白主题
 const theme = createTheme({
   palette: {
     mode: 'light',
     primary: {
-      main: '#9e9e9e', // 更淡的灰色，非常朴素
+      main: '#212121', // 墨黑色，现代简洁
     },
     secondary: {
-      main: '#bdbdbd', // 更淡的灰色
+      main: '#424242', // 深灰色，用于次要元素
     },
     background: {
-      default: '#ffffff', // 纯白色背景，最朴素
+      default: '#ffffff', // 纯白色背景
     },
     text: {
-      primary: '#424242', // 深灰色文字
-      secondary: '#757575', // 中等灰色文字
+      primary: '#212121', // 墨黑色文字，高对比度
+      secondary: '#616161', // 中等灰色文字
     },
   },
   typography: {

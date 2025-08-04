@@ -182,7 +182,7 @@ const GeneratePortPage: React.FC = () => {
                 justifyContent: 'space-between',
                 mt: 2,
                 p: 2,
-                bgcolor: '#f5f5f5',
+                bgcolor: '#fafafa',
                 borderRadius: 1,
                 border: '1px solid #e0e0e0'
               }}>
@@ -230,8 +230,8 @@ const GeneratePortPage: React.FC = () => {
               sx={{
                 p: 4,
                 textAlign: 'center',
-                backgroundColor: '#f5f5f5',
-                border: '1px solid #e0e0e0'
+                backgroundColor: '#fafafa',
+                border: '2px solid #212121'
               }}
             >
               <Typography
