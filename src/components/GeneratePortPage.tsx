@@ -23,21 +23,36 @@ const GeneratePortPage: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
   const [success, setSuccess] = useState<string | null>(null);
   const [copyMessage, setCopyMessage] = useState<string | null>(null);
+  const [isInitialized, setIsInitialized] = useState(false);
 
-  // 从localStorage加载端口范围设置
+  // 从localStorage加载端口范围和生成数量设置
   useEffect(() => {
     const savedMinPort = localStorage.getItem('minPort');
     const savedMaxPort = localStorage.getItem('maxPort');
-    
+    const savedPortCount = localStorage.getItem('portCount');
+
     if (savedMinPort) setMinPort(parseInt(savedMinPort));
     if (savedMaxPort) setMaxPort(parseInt(savedMaxPort));
+    if (savedPortCount) setPortCount(parseInt(savedPortCount));
+
+    // 标记初始化完成
+    setIsInitialized(true);
   }, []);
 
-  // 保存端口范围设置到localStorage
+  // 保存端口范围设置到localStorage（只在初始化完成后）
   useEffect(() => {
-    localStorage.setItem('minPort', minPort.toString());
-    localStorage.setItem('maxPort', maxPort.toString());
-  }, [minPort, maxPort]);
+    if (isInitialized) {
+      localStorage.setItem('minPort', minPort.toString());
+      localStorage.setItem('maxPort', maxPort.toString());
+    }
+  }, [minPort, maxPort, isInitialized]);
+
+  // 保存生成数量设置到localStorage（只在初始化完成后）
+  useEffect(() => {
+    if (isInitialized) {
+      localStorage.setItem('portCount', portCount.toString());
+    }
+  }, [portCount, isInitialized]);
 
   const handleGeneratePorts = async () => {
     setIsGenerating(true);
