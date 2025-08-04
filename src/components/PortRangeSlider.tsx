@@ -1,9 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Slider,
   Button,
-  ButtonGroup
+  ButtonGroup,
+  TextField,
+  Typography
 } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 
@@ -21,6 +23,16 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
   onMaxPortChange
 }) => {
   const { t } = useTranslation();
+  const [minInputValue, setMinInputValue] = useState(minPort.toString());
+  const [maxInputValue, setMaxInputValue] = useState(maxPort.toString());
+  const [minError, setMinError] = useState('');
+  const [maxError, setMaxError] = useState('');
+
+  // 同步外部props变化到内部状态
+  useEffect(() => {
+    setMinInputValue(minPort.toString());
+    setMaxInputValue(maxPort.toString());
+  }, [minPort, maxPort]);
 
   const presetRanges = [
     { labelKey: 'generatePage.presetRanges.system', min: 1, max: 1024 },
@@ -32,6 +44,65 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
   const handlePresetClick = (min: number, max: number) => {
     onMinPortChange(min);
     onMaxPortChange(max);
+    setMinInputValue(min.toString());
+    setMaxInputValue(max.toString());
+    setMinError('');
+    setMaxError('');
+  };
+
+  const validatePortRange = (min: number, max: number): { minError: string; maxError: string } => {
+    let minError = '';
+    let maxError = '';
+
+    if (min < 1 || min > 65535) {
+      minError = t('generatePage.portRangeError.invalidMin') as string;
+    }
+    if (max < 1 || max > 65535) {
+      maxError = t('generatePage.portRangeError.invalidMax') as string;
+    }
+    if (min >= max && !minError && !maxError) {
+      minError = t('generatePage.portRangeError.minGreaterThanMax') as string;
+    }
+
+    return { minError, maxError };
+  };
+
+  const handleMinInputChange = (value: string) => {
+    setMinInputValue(value);
+    const numValue = parseInt(value);
+
+    if (!isNaN(numValue)) {
+      const { minError, maxError } = validatePortRange(numValue, maxPort);
+      setMinError(minError);
+      setMaxError(maxError);
+
+      if (!minError && !maxError) {
+        onMinPortChange(numValue);
+      }
+    } else if (value === '') {
+      setMinError('');
+    } else {
+      setMinError(t('generatePage.portRangeError.invalidNumber') as string);
+    }
+  };
+
+  const handleMaxInputChange = (value: string) => {
+    setMaxInputValue(value);
+    const numValue = parseInt(value);
+
+    if (!isNaN(numValue)) {
+      const { minError, maxError } = validatePortRange(minPort, numValue);
+      setMinError(minError);
+      setMaxError(maxError);
+
+      if (!minError && !maxError) {
+        onMaxPortChange(numValue);
+      }
+    } else if (value === '') {
+      setMaxError('');
+    } else {
+      setMaxError(t('generatePage.portRangeError.invalidNumber') as string);
+    }
   };
 
   return (
@@ -69,6 +140,10 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
             const [min, max] = newValue as number[];
             onMinPortChange(min);
             onMaxPortChange(max);
+            setMinInputValue(min.toString());
+            setMaxInputValue(max.toString());
+            setMinError('');
+            setMaxError('');
           }}
           min={1}
           max={65536}
@@ -76,6 +151,49 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
           valueLabelDisplay="auto"
           disableSwap
         />
+      </Box>
+
+      {/* 手动输入框 */}
+      <Box sx={{ mt: 2, display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            {t('generatePage.minValue')}
+          </Typography>
+          <TextField
+            size="small"
+            type="number"
+            value={minInputValue}
+            onChange={(e) => handleMinInputChange(e.target.value)}
+            error={!!minError}
+            helperText={minError}
+            inputProps={{
+              min: 1,
+              max: 65535,
+              step: 1
+            }}
+            fullWidth
+          />
+        </Box>
+
+        <Box sx={{ flex: 1 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+            {t('generatePage.maxValue')}
+          </Typography>
+          <TextField
+            size="small"
+            type="number"
+            value={maxInputValue}
+            onChange={(e) => handleMaxInputChange(e.target.value)}
+            error={!!maxError}
+            helperText={maxError}
+            inputProps={{
+              min: 1,
+              max: 65535,
+              step: 1
+            }}
+            fullWidth
+          />
+        </Box>
       </Box>
     </Box>
   );

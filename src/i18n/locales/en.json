@@ -24,6 +24,12 @@
       "dynamic": "Dynamic",
       "all": "All"
     },
+    "portRangeError": {
+      "invalidMin": "Minimum port must be between 1-65535",
+      "invalidMax": "Maximum port must be between 1-65535",
+      "minGreaterThanMax": "Minimum port cannot be greater than or equal to maximum port",
+      "invalidNumber": "Please enter a valid number"
+    },
     "startGenerate": "Start Generate",
     "generating": "Generating...",
     "pleaseWait": "Please wait",

@@ -24,6 +24,12 @@
       "dynamic": "动态端口",
       "all": "全部端口"
     },
+    "portRangeError": {
+      "invalidMin": "最小端口号必须在1-65535之间",
+      "invalidMax": "最大端口号必须在1-65535之间",
+      "minGreaterThanMax": "最小端口号不能大于等于最大端口号",
+      "invalidNumber": "请输入有效的数字"
+    },
     "startGenerate": "开始生成",
     "generating": "生成中...",
     "pleaseWait": "请稍候",
