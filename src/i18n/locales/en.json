@@ -1,0 +1,99 @@
+{
+  "app": {
+    "title": "Random Port Generator",
+    "version": "v1.0"
+  },
+  "navigation": {
+    "generatePort": "Generate Port",
+    "usedPorts": "Used Ports"
+  },
+  "generatePage": {
+    "title": "Random Port Generator",
+    "subtitle": "Quickly generate available random port numbers",
+    "configSettings": "Configuration Settings",
+    "portRange": "Port Range",
+    "portCount": "Port Count",
+    "portCountHelper": "Please enter a number between 1-1000",
+    "availablePorts": "Available ports: {{count}}",
+    "minValue": "Min",
+    "maxValue": "Max",
+    "currentSetting": "Current setting: {{count}} ports",
+    "presetRanges": {
+      "system": "System",
+      "registered": "Registered",
+      "dynamic": "Dynamic",
+      "all": "All"
+    },
+    "startGenerate": "Start Generate",
+    "generating": "Generating...",
+    "pleaseWait": "Please wait",
+    "generateRandomPort": "Generate Random Port",
+    "clickToStart": "Click to start generating",
+    "generateSuccess": "Successfully generated {{count}} random ports",
+    "generateError": "Error occurred while generating ports",
+    "saveSuccess": "Saved {{count}} ports to database",
+    "saveError": "Error occurred while saving ports"
+  },
+  "portResult": {
+    "title": "Generation Result",
+    "generated": "Generated {{count}} random ports",
+    "copyPort": "Copy Ports",
+    "regenerate": "Regenerate",
+    "markAsUsed": "I Used It",
+    "copySuccess": "Port numbers copied to clipboard",
+    "copyFailed": "Copy failed, please copy manually",
+    "savedAndCopied": "Ports saved and copied to clipboard",
+    "savedCopyFailed": "Ports saved, but failed to copy to clipboard"
+  },
+  "usedPortsPage": {
+    "title": "Used Ports Management",
+    "subtitle": "View and manage your used port records",
+    "loadError": "Failed to load port data"
+  },
+  "usedPortsList": {
+    "title": "Used Ports List ({{count}} items)",
+    "noUsedPorts": "No used ports yet",
+    "noUsedPortsDesc": "Generated ports will be displayed here",
+    "import": "Import",
+    "export": "Export",
+    "clear": "Clear",
+    "search": "Search ports...",
+    "sortBy": "Sort by",
+    "sortByPort": "Port Number",
+    "sortByTime": "Time",
+    "sortAsc": "Ascending",
+    "sortDesc": "Descending",
+    "port": "Port",
+    "usedAt": "Used At",
+    "note": "Note",
+    "actions": "Actions",
+    "edit": "Edit",
+    "delete": "Delete",
+    "save": "Save",
+    "cancel": "Cancel",
+    "editNote": "Edit Note",
+    "enterNote": "Enter note...",
+    "confirmDelete": "Are you sure you want to delete this port record?",
+    "confirmClearAll": "Are you sure you want to clear all port records? This action cannot be undone.",
+    "deleteSuccess": "Port record deleted successfully",
+    "deleteError": "Failed to delete port record",
+    "updateSuccess": "Port record updated successfully",
+    "updateError": "Failed to update port record",
+    "clearSuccess": "All port records cleared",
+    "clearError": "Failed to clear database",
+    "exportSuccess": "Data exported successfully",
+    "exportError": "Export failed",
+    "importSuccess": "Data imported successfully, added {{count}} records",
+    "importError": "Import failed: {{error}}",
+    "importFormatError": "Invalid file format",
+    "selectFile": "Select File",
+    "importData": "Import Data",
+    "importDesc": "Select a JSON file to import port records",
+    "close": "Close"
+  },
+  "language": {
+    "switch": "Language",
+    "en": "English",
+    "zh": "简体中文"
+  }
+}

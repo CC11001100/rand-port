@@ -28,6 +28,7 @@ import {
   Download,
   Upload
 } from '@mui/icons-material';
+import { useTranslation } from 'react-i18next';
 import { IndexedDBService } from '../services/IndexedDBService';
 import { PortRecord, PortFilter, PortSort } from '../types';
 
@@ -37,10 +38,12 @@ interface UsedPortsListProps {
 }
 
 const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) => {
+  const { t } = useTranslation();
   const [filter, setFilter] = useState<PortFilter>({});
   const [sort, setSort] = useState<PortSort>({ field: 'usedAt', direction: 'desc' });
   const [importDialogOpen, setImportDialogOpen] = useState(false);
   const [importData, setImportData] = useState('');
+  const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const [error, setError] = useState<string>('');
   const [success, setSuccess] = useState<string>('');
 
@@ -94,10 +97,10 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       await db.init();
       await db.removePort(id);
       onPortsChange();
-      setSuccess('端口删除成功');
+      setSuccess(t('usedPortsList.deleteSuccess'));
     } catch (error) {
-      setError('删除端口失败');
-      console.error('删除端口失败:', error);
+      setError(t('usedPortsList.deleteError'));
+      console.error('Delete port failed:', error);
     }
   };
 
@@ -110,7 +113,7 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
     link.download = `used-ports-${new Date().toISOString().split('T')[0]}.json`;
     link.click();
     URL.revokeObjectURL(url);
-    setSuccess('导出成功');
+    setSuccess(t('usedPortsList.exportSuccess'));
   };
 
   const handleImport = async () => {
@@ -135,25 +138,33 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       setImportDialogOpen(false);
       setImportData('');
       onPortsChange();
-      setSuccess(`成功导入 ${data.length} 个端口记录`);
+      setSuccess(t('usedPortsList.importSuccess', { count: data.length }));
     } catch (error) {
-      setError('导入失败：数据格式错误');
+      setError(t('usedPortsList.importFormatError'));
     }
   };
 
   const handleClearAll = async () => {
-    if (window.confirm('确定要清空所有端口记录吗？此操作不可恢复。')) {
-      try {
-        const db = new IndexedDBService();
-        await db.init();
-        await db.clearAll();
-        onPortsChange();
-        setSuccess('所有端口记录已清空');
-      } catch (error) {
-        setError('清空数据库失败');
-        console.error('清空数据库失败:', error);
-      }
+    try {
+      const db = new IndexedDBService();
+      await db.init();
+      await db.clearAll();
+      onPortsChange();
+      setSuccess(t('usedPortsList.clearSuccess'));
+      setConfirmDialogOpen(false);
+    } catch (error) {
+      setError(t('usedPortsList.clearError'));
+      console.error('Clear database failed:', error);
+      setConfirmDialogOpen(false);
     }
+  };
+
+  const handleClearAllClick = () => {
+    setConfirmDialogOpen(true);
+  };
+
+  const handleConfirmDialogClose = () => {
+    setConfirmDialogOpen(false);
   };
 
   if (ports.length === 0) {
@@ -161,10 +172,10 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       <Card>
         <Box sx={{ p: 3, textAlign: 'center' }}>
           <Typography variant="h6" color="text.secondary">
-            暂无已使用的端口
+            {t('usedPortsList.noUsedPorts')}
           </Typography>
           <Typography variant="body2" color="text.secondary" sx={{ mt: 1 }}>
-            生成的端口将显示在这里
+            {t('usedPortsList.noUsedPortsDesc')}
           </Typography>
         </Box>
       </Card>
@@ -177,34 +188,34 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       <Card sx={{ mb: 3 }}>
         <Box sx={{ p: 2 }}>
           <Typography variant="h6" gutterBottom>
-            筛选和排序
+            {t('usedPortsList.sortBy')}
           </Typography>
           <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: '1fr 1fr', md: '1fr 1fr 1fr' }, gap: 2 }}>
             <TextField
               fullWidth
-              label="关键字搜索"
+              label={t('usedPortsList.search')}
               value={filter.keyword || ''}
               onChange={(e) => setFilter({ ...filter, keyword: e.target.value })}
               size="small"
             />
             <FormControl fullWidth size="small">
-              <InputLabel>排序字段</InputLabel>
+              <InputLabel>{t('usedPortsList.sortBy')}</InputLabel>
               <Select
                 value={sort.field}
                 onChange={(e) => setSort({ ...sort, field: e.target.value as 'port' | 'usedAt' })}
               >
-                <MenuItem value="port">端口号</MenuItem>
-                <MenuItem value="usedAt">使用时间</MenuItem>
+                <MenuItem value="port">{t('usedPortsList.sortByPort')}</MenuItem>
+                <MenuItem value="usedAt">{t('usedPortsList.sortByTime')}</MenuItem>
               </Select>
             </FormControl>
             <FormControl fullWidth size="small">
-              <InputLabel>排序方向</InputLabel>
+              <InputLabel>{t('usedPortsList.sortBy')}</InputLabel>
               <Select
                 value={sort.direction}
                 onChange={(e) => setSort({ ...sort, direction: e.target.value as 'asc' | 'desc' })}
               >
-                <MenuItem value="asc">升序</MenuItem>
-                <MenuItem value="desc">降序</MenuItem>
+                <MenuItem value="asc">{t('usedPortsList.sortAsc')}</MenuItem>
+                <MenuItem value="desc">{t('usedPortsList.sortDesc')}</MenuItem>
               </Select>
             </FormControl>
           </Box>
@@ -215,7 +226,7 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
       <Card sx={{ mb: 3 }}>
         <Box sx={{ p: 2, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <Typography variant="h6">
-            已使用端口列表 ({filteredAndSortedPorts.length}个)
+            {t('usedPortsList.title', { count: filteredAndSortedPorts.length })}
           </Typography>
           <Box sx={{ display: 'flex', gap: 1 }}>
             <Button
@@ -224,7 +235,7 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
               onClick={() => setImportDialogOpen(true)}
               size="small"
             >
-              导入
+              {t('usedPortsList.import')}
             </Button>
             <Button
               variant="outlined"
@@ -232,15 +243,15 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
               onClick={handleExport}
               size="small"
             >
-              导出
+              {t('usedPortsList.export')}
             </Button>
             <Button
               variant="outlined"
-              onClick={handleClearAll}
+              onClick={handleClearAllClick}
               size="small"
               color="error"
             >
-              清空
+              {t('usedPortsList.clear')}
             </Button>
           </Box>
         </Box>
@@ -273,7 +284,7 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
                           fontSize: '1.4rem'
                         }}
                       >
-                        端口 {port.port}
+                        {t('usedPortsList.port')} {port.port}
                       </Typography>
                       <Chip
                         label={port.actionId ? port.actionId.slice(0, 8) : 'N/A'}
@@ -285,11 +296,11 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
                   secondary={
                     <React.Fragment>
                       <Typography variant="body2" color="text.secondary" component="span" display="block">
-                        使用时间: {new Date(port.usedAt).toLocaleString()}
+                        {t('usedPortsList.usedAt')}: {new Date(port.usedAt).toLocaleString()}
                       </Typography>
                       {port.note && (
                         <Typography variant="body2" color="text.secondary" component="span" display="block">
-                          备注: {port.note}
+                          {t('usedPortsList.note')}: {port.note}
                         </Typography>
                       )}
                     </React.Fragment>
@@ -304,7 +315,7 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
 
       {/* 导入对话框 */}
       <Dialog open={importDialogOpen} onClose={() => setImportDialogOpen(false)} maxWidth="md" fullWidth>
-        <DialogTitle>导入端口数据</DialogTitle>
+        <DialogTitle>{t('usedPortsList.importData')}</DialogTitle>
         <DialogContent>
           <TextField
             fullWidth
@@ -317,8 +328,37 @@ const UsedPortsList: React.FC<UsedPortsListProps> = ({ ports, onPortsChange }) =
           />
         </DialogContent>
         <DialogActions>
-          <Button onClick={() => setImportDialogOpen(false)}>取消</Button>
-          <Button onClick={handleImport} variant="contained">导入</Button>
+          <Button onClick={() => setImportDialogOpen(false)}>{t('usedPortsList.cancel')}</Button>
+          <Button onClick={handleImport} variant="contained">{t('usedPortsList.import')}</Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* 确认清空对话框 */}
+      <Dialog
+        open={confirmDialogOpen}
+        onClose={handleConfirmDialogClose}
+        maxWidth="sm"
+        fullWidth
+      >
+        <DialogTitle>
+          {t('usedPortsList.clear')}
+        </DialogTitle>
+        <DialogContent>
+          <Typography>
+            {t('usedPortsList.confirmClearAll')}
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleConfirmDialogClose}>
+            {t('usedPortsList.cancel')}
+          </Button>
+          <Button
+            onClick={handleClearAll}
+            variant="contained"
+            color="error"
+          >
+            {t('usedPortsList.clear')}
+          </Button>
         </DialogActions>
       </Dialog>
 

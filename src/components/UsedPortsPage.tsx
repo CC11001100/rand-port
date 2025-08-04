@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -6,16 +6,18 @@ import {
   Snackbar,
   CircularProgress
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 import UsedPortsList from './UsedPortsList';
 import { IndexedDBService } from '../services/IndexedDBService';
 import { PortRecord } from '../types';
 
 const UsedPortsPage: React.FC = () => {
+  const { t } = useTranslation();
   const [ports, setPorts] = useState<PortRecord[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string>('');
 
-  const loadPorts = async () => {
+  const loadPorts = useCallback(async () => {
     try {
       setLoading(true);
       const db = new IndexedDBService();
@@ -23,16 +25,16 @@ const UsedPortsPage: React.FC = () => {
       const allPorts = await db.getPorts();
       setPorts(allPorts);
     } catch (err) {
-      setError('加载端口数据失败');
-      console.error('加载端口失败:', err);
+      setError(t('usedPortsPage.loadError'));
+      console.error('Load ports failed:', err);
     } finally {
       setLoading(false);
     }
-  };
+  }, [t]);
 
   useEffect(() => {
     loadPorts();
-  }, []);
+  }, [loadPorts]);
 
   const handlePortsChange = () => {
     loadPorts();
@@ -50,11 +52,11 @@ const UsedPortsPage: React.FC = () => {
     <Box>
       <Box sx={{ textAlign: 'center', mb: 4 }}>
         <Typography variant="h4" component="h1" gutterBottom>
-          已使用端口管理
+          {t('usedPortsPage.title')}
         </Typography>
-        
+
         <Typography variant="subtitle1" color="text.secondary">
-          查看和管理您已使用的端口记录
+          {t('usedPortsPage.subtitle')}
         </Typography>
       </Box>
 

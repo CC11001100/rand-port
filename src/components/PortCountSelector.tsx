@@ -5,6 +5,7 @@ import {
   Button,
   ButtonGroup
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface PortCountSelectorProps {
   portCount: number;
@@ -15,6 +16,7 @@ const PortCountSelector: React.FC<PortCountSelectorProps> = ({
   portCount,
   onPortCountChange
 }) => {
+  const { t } = useTranslation();
   const presetCounts = [1, 5, 10, 20, 50];
 
   const handlePresetClick = (count: number) => {
@@ -52,7 +54,7 @@ const PortCountSelector: React.FC<PortCountSelectorProps> = ({
 
       <Box>
         <TextField
-          label="端口数量"
+          label={t('generatePage.portCount')}
           type="number"
           value={portCount}
           onChange={handleInputChange}
@@ -63,7 +65,7 @@ const PortCountSelector: React.FC<PortCountSelectorProps> = ({
           }}
           size="small"
           fullWidth
-          helperText="请输入1-1000之间的数字"
+          helperText={t('generatePage.portCountHelper')}
         />
       </Box>
     </Box>

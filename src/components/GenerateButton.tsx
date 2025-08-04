@@ -5,6 +5,7 @@ import {
   Typography
 } from '@mui/material';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
+import { useTranslation } from 'react-i18next';
 
 interface GenerateButtonProps {
   onGenerate: () => void;
@@ -15,6 +16,7 @@ const GenerateButton: React.FC<GenerateButtonProps> = ({
   onGenerate,
   isGenerating
 }) => {
+  const { t } = useTranslation();
   return (
     <Box sx={{ textAlign: 'center' }}>
       <Button
@@ -49,10 +51,10 @@ const GenerateButton: React.FC<GenerateButtonProps> = ({
       >
         <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <Typography variant="h6" component="span" sx={{ fontWeight: 700 }}>
-            {isGenerating ? '生成中...' : '生成随机端口'}
+            {isGenerating ? t('generatePage.generating') : t('generatePage.generateRandomPort')}
           </Typography>
           <Typography variant="body2" component="span" sx={{ opacity: 0.9, mt: 0.5 }}>
-            {isGenerating ? '请稍候' : '点击开始生成'}
+            {isGenerating ? t('generatePage.pleaseWait') : t('generatePage.clickToStart')}
           </Typography>
         </Box>
       </Button>

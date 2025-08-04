@@ -8,6 +8,7 @@ import {
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import SaveIcon from '@mui/icons-material/Save';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
+import { useTranslation } from 'react-i18next';
 
 interface PortResultDisplayProps {
   ports: number[];
@@ -22,12 +23,13 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
   onRegenerate,
   onCopySuccess
 }) => {
+  const { t } = useTranslation();
   const handleCopyToClipboard = () => {
     const portNumbers = ports.join(', ');
     navigator.clipboard.writeText(portNumbers).then(() => {
-      onCopySuccess?.('端口号已复制到剪切板');
+      onCopySuccess?.(t('portResult.copySuccess'));
     }).catch(() => {
-      onCopySuccess?.('复制失败，请手动复制');
+      onCopySuccess?.(t('portResult.copyFailed'));
     });
   };
 
@@ -35,9 +37,9 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
     // 先复制端口到剪切板
     const portNumbers = ports.join(', ');
     navigator.clipboard.writeText(portNumbers).then(() => {
-      onCopySuccess?.('端口已保存并复制到剪切板');
+      onCopySuccess?.(t('portResult.savedAndCopied'));
     }).catch(() => {
-      onCopySuccess?.('端口已保存，但复制到剪切板失败');
+      onCopySuccess?.(t('portResult.savedCopyFailed'));
     });
 
     // 然后保存端口
@@ -56,7 +58,7 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           mb: 3
         }}
       >
-        生成结果
+        {t('portResult.title')}
       </Typography>
 
       <Box sx={{ mb: 4 }}>
@@ -66,7 +68,7 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
           gutterBottom
           sx={{ textAlign: 'center', mb: 3 }}
         >
-          已生成 {ports.length} 个随机端口
+          {t('portResult.generated', { count: ports.length })}
         </Typography>
 
         <Box sx={{
@@ -133,7 +135,7 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
             }
           }}
         >
-          复制端口
+          {t('portResult.copyPort')}
         </Button>
 
         <Button
@@ -153,7 +155,7 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
             }
           }}
         >
-          换一个
+          {t('portResult.regenerate')}
         </Button>
 
         <Button
@@ -174,7 +176,7 @@ const PortResultDisplay: React.FC<PortResultDisplayProps> = ({
             }
           }}
         >
-          我用了
+          {t('portResult.markAsUsed')}
         </Button>
       </Box>
     </Box>

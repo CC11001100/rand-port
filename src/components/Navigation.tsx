@@ -3,19 +3,22 @@ import { AppBar, Toolbar, Typography, Button, Box } from '@mui/material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import ShuffleIcon from '@mui/icons-material/Shuffle';
 import ListIcon from '@mui/icons-material/List';
+import { useTranslation } from 'react-i18next';
 import GitHubIcon from './GitHubIcon';
+import LanguageSwitch from './LanguageSwitch';
 
 const Navigation: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <AppBar position="static" elevation={1}>
       <Toolbar>
         <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 600 }}>
-          随机端口生成器
+          {t('app.title')}
           <Typography component="span" variant="caption" sx={{ ml: 1, opacity: 0.7 }}>
-            v1.0
+            {t('app.version')}
           </Typography>
         </Typography>
         
@@ -28,7 +31,7 @@ const Navigation: React.FC = () => {
               backgroundColor: location.pathname === '/generate' ? 'rgba(255,255,255,0.1)' : 'transparent',
             }}
           >
-            生成端口
+            {t('navigation.generatePort')}
           </Button>
           <Button
             color="inherit"
@@ -38,8 +41,9 @@ const Navigation: React.FC = () => {
               backgroundColor: location.pathname === '/used-ports' ? 'rgba(255,255,255,0.1)' : 'transparent',
             }}
           >
-            已使用端口
+            {t('navigation.usedPorts')}
           </Button>
+          <LanguageSwitch />
           <GitHubIcon />
         </Box>
       </Toolbar>

@@ -7,6 +7,7 @@ import {
   Paper
 } from '@mui/material';
 import { v4 as uuidv4 } from 'uuid';
+import { useTranslation } from 'react-i18next';
 import PortRangeSlider from './PortRangeSlider';
 import PortCountSelector from './PortCountSelector';
 import GenerateButton from './GenerateButton';
@@ -15,6 +16,7 @@ import { PortRecord, PortRange } from '../types';
 import { PortGenerator } from '../utils/portGenerator';
 
 const GeneratePortPage: React.FC = () => {
+  const { t } = useTranslation();
   const [minPort, setMinPort] = useState(3000);
   const [maxPort, setMaxPort] = useState(65536);
   const [portCount, setPortCount] = useState(1);
@@ -67,9 +69,9 @@ const GeneratePortPage: React.FC = () => {
       // 提取端口号
       const selectedPorts = portRecords.map(record => record.port);
       setGeneratedPorts(selectedPorts);
-      setSuccess(`成功生成 ${portCount} 个随机端口`);
+      setSuccess(t('generatePage.generateSuccess', { count: portCount }));
     } catch (err) {
-      setError(err instanceof Error ? err.message : '生成端口时发生错误');
+      setError(err instanceof Error ? err.message : t('generatePage.generateError'));
     } finally {
       setIsGenerating(false);
     }
@@ -90,9 +92,9 @@ const GeneratePortPage: React.FC = () => {
       await PortGenerator.markPortsAsUsed(portRecords);
 
       setGeneratedPorts([]);
-      setSuccess(`已保存 ${ports.length} 个端口到数据库`);
+      setSuccess(t('generatePage.saveSuccess', { count: ports.length }));
     } catch (err) {
-      setError(err instanceof Error ? err.message : '保存端口时发生错误');
+      setError(err instanceof Error ? err.message : t('generatePage.saveError'));
     }
   };
 
@@ -116,10 +118,10 @@ const GeneratePortPage: React.FC = () => {
             mb: 2
           }}
         >
-          随机端口生成器
+          {t('generatePage.title')}
         </Typography>
         <Typography variant="h6" color="text.secondary" sx={{ fontWeight: 400 }}>
-          快速生成可用的随机端口号
+          {t('generatePage.subtitle')}
         </Typography>
       </Box>
 
@@ -147,12 +149,12 @@ const GeneratePortPage: React.FC = () => {
                 mb: 3
               }}
             >
-              配置设置
+              {t('generatePage.configSettings')}
             </Typography>
 
             <Box sx={{ mb: 4 }}>
               <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
-                端口范围
+                {t('generatePage.portRange')}
               </Typography>
               <PortRangeSlider
                 minPort={minPort}
@@ -170,10 +172,10 @@ const GeneratePortPage: React.FC = () => {
                 border: '1px solid #e0e0e0'
               }}>
                 <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                  最小值: {minPort}
+                  {t('generatePage.minValue')}: {minPort}
                 </Typography>
                 <Typography variant="body1" sx={{ fontWeight: 500 }}>
-                  最大值: {maxPort}
+                  {t('generatePage.maxValue')}: {maxPort}
                 </Typography>
               </Box>
               <Typography
@@ -181,13 +183,13 @@ const GeneratePortPage: React.FC = () => {
                 color="text.secondary"
                 sx={{ mt: 1, textAlign: 'center' }}
               >
-                可用端口数量: {availablePortCount.toLocaleString()}
+                {t('generatePage.availablePorts', { count: availablePortCount.toLocaleString() })}
               </Typography>
             </Box>
 
             <Box>
               <Typography variant="h6" gutterBottom sx={{ fontWeight: 500 }}>
-                生成数量
+                {t('generatePage.portCount')}
               </Typography>
               <PortCountSelector
                 portCount={portCount}
@@ -198,7 +200,7 @@ const GeneratePortPage: React.FC = () => {
                 color="text.secondary"
                 sx={{ mt: 2, textAlign: 'center' }}
               >
-                当前设置: {portCount} 个端口
+                {t('generatePage.currentSetting', { count: portCount })}
               </Typography>
             </Box>
           </Paper>
@@ -225,7 +227,7 @@ const GeneratePortPage: React.FC = () => {
                   mb: 3
                 }}
               >
-                开始生成
+                {t('generatePage.startGenerate')}
               </Typography>
               <GenerateButton
                 onGenerate={handleGeneratePorts}

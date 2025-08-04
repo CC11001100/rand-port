@@ -6,6 +6,7 @@ import { Box, Container } from '@mui/material';
 import Navigation from './components/Navigation';
 import GeneratePortPage from './components/GeneratePortPage';
 import UsedPortsPage from './components/UsedPortsPage';
+import './i18n'; // 导入i18n配置
 
 // 创建简洁的黑白主题
 const theme = createTheme({

@@ -1,0 +1,99 @@
+{
+  "app": {
+    "title": "随机端口生成器",
+    "version": "v1.0"
+  },
+  "navigation": {
+    "generatePort": "生成端口",
+    "usedPorts": "已使用端口"
+  },
+  "generatePage": {
+    "title": "随机端口生成器",
+    "subtitle": "快速生成可用的随机端口号",
+    "configSettings": "配置设置",
+    "portRange": "端口范围",
+    "portCount": "端口数量",
+    "portCountHelper": "请输入1-1000之间的数字",
+    "availablePorts": "可用端口数：{{count}}",
+    "minValue": "最小值",
+    "maxValue": "最大值",
+    "currentSetting": "当前设置: {{count}} 个端口",
+    "presetRanges": {
+      "system": "系统端口",
+      "registered": "注册端口",
+      "dynamic": "动态端口",
+      "all": "全部端口"
+    },
+    "startGenerate": "开始生成",
+    "generating": "生成中...",
+    "pleaseWait": "请稍候",
+    "generateRandomPort": "生成随机端口",
+    "clickToStart": "点击开始生成",
+    "generateSuccess": "成功生成 {{count}} 个随机端口",
+    "generateError": "生成端口时发生错误",
+    "saveSuccess": "已保存 {{count}} 个端口到数据库",
+    "saveError": "保存端口时发生错误"
+  },
+  "portResult": {
+    "title": "生成结果",
+    "generated": "已生成 {{count}} 个随机端口",
+    "copyPort": "复制端口",
+    "regenerate": "换一个",
+    "markAsUsed": "我用了",
+    "copySuccess": "端口号已复制到剪切板",
+    "copyFailed": "复制失败，请手动复制",
+    "savedAndCopied": "端口已保存并复制到剪切板",
+    "savedCopyFailed": "端口已保存，但复制到剪切板失败"
+  },
+  "usedPortsPage": {
+    "title": "已使用端口管理",
+    "subtitle": "查看和管理您已使用的端口记录",
+    "loadError": "加载端口数据失败"
+  },
+  "usedPortsList": {
+    "title": "已使用端口列表 ({{count}}个)",
+    "noUsedPorts": "暂无已使用的端口",
+    "noUsedPortsDesc": "生成的端口将显示在这里",
+    "import": "导入",
+    "export": "导出",
+    "clear": "清空",
+    "search": "搜索端口...",
+    "sortBy": "排序方式",
+    "sortByPort": "端口号",
+    "sortByTime": "时间",
+    "sortAsc": "升序",
+    "sortDesc": "降序",
+    "port": "端口",
+    "usedAt": "使用时间",
+    "note": "备注",
+    "actions": "操作",
+    "edit": "编辑",
+    "delete": "删除",
+    "save": "保存",
+    "cancel": "取消",
+    "editNote": "编辑备注",
+    "enterNote": "输入备注...",
+    "confirmDelete": "确定要删除这个端口记录吗？",
+    "confirmClearAll": "确定要清空所有端口记录吗？此操作不可恢复。",
+    "deleteSuccess": "端口记录删除成功",
+    "deleteError": "删除端口记录失败",
+    "updateSuccess": "端口记录更新成功",
+    "updateError": "更新端口记录失败",
+    "clearSuccess": "所有端口记录已清空",
+    "clearError": "清空数据库失败",
+    "exportSuccess": "数据导出成功",
+    "exportError": "导出失败",
+    "importSuccess": "数据导入成功，新增 {{count}} 条记录",
+    "importError": "导入失败：{{error}}",
+    "importFormatError": "文件格式不正确",
+    "selectFile": "选择文件",
+    "importData": "导入数据",
+    "importDesc": "选择JSON文件导入端口记录",
+    "close": "关闭"
+  },
+  "language": {
+    "switch": "语言",
+    "en": "English",
+    "zh": "简体中文"
+  }
+}

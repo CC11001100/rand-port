@@ -5,6 +5,7 @@ import {
   Button,
   ButtonGroup
 } from '@mui/material';
+import { useTranslation } from 'react-i18next';
 
 interface PortRangeSliderProps {
   minPort: number;
@@ -19,11 +20,13 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
   onMinPortChange,
   onMaxPortChange
 }) => {
+  const { t } = useTranslation();
+
   const presetRanges = [
-    { label: '1', min: 1, max: 1024 },
-    { label: '1024', min: 1024, max: 3000 },
-    { label: '3000', min: 3000, max: 65536 },
-    { label: '65536', min: 1, max: 65536 }
+    { labelKey: 'generatePage.presetRanges.system', min: 1, max: 1024 },
+    { labelKey: 'generatePage.presetRanges.registered', min: 1024, max: 49151 },
+    { labelKey: 'generatePage.presetRanges.dynamic', min: 49152, max: 65535 },
+    { labelKey: 'generatePage.presetRanges.all', min: 1, max: 65535 }
   ];
 
   const handlePresetClick = (min: number, max: number) => {
@@ -40,20 +43,20 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
               key={index}
               onClick={() => handlePresetClick(range.min, range.max)}
               sx={{
-                backgroundColor: minPort === range.min && maxPort === range.max 
-                  ? 'primary.main' 
+                backgroundColor: minPort === range.min && maxPort === range.max
+                  ? 'primary.main'
                   : 'transparent',
-                color: minPort === range.min && maxPort === range.max 
-                  ? 'white' 
+                color: minPort === range.min && maxPort === range.max
+                  ? 'white'
                   : 'inherit',
                 '&:hover': {
-                  backgroundColor: minPort === range.min && maxPort === range.max 
-                    ? 'primary.dark' 
+                  backgroundColor: minPort === range.min && maxPort === range.max
+                    ? 'primary.dark'
                     : 'action.hover',
                 }
               }}
             >
-              {range.label}
+              {t(range.labelKey)}
             </Button>
           ))}
         </ButtonGroup>
