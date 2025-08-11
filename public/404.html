@@ -5,21 +5,14 @@
     <title>随机端口生成器</title>
     <script type="text/javascript">
       // GitHub Pages 单页应用路由处理
-      // 获取当前路径并重定向到正确的路由
-      var path = window.location.pathname;
-      var search = window.location.search;
-      var hash = window.location.hash;
+      // 由于使用 HashRouter，直接重定向到根路径即可
+      var currentPath = window.location.pathname;
       
-      // 移除 /rand-port 前缀（如果存在）
-      if (path.startsWith('/rand-port/')) {
-        path = path.replace('/rand-port', '');
+      // 如果路径不是根路径，重定向到根路径
+      if (currentPath !== '/rand-port/' && currentPath !== '/rand-port') {
+        // 重定向到根路径，让 HashRouter 处理路由
+        window.location.replace('/rand-port/');
       }
-      
-      // 构建新的URL
-      var newUrl = window.location.origin + '/rand-port/' + path + search + hash;
-      
-      // 重定向到正确的URL
-      window.location.replace(newUrl);
     </script>
   </head>
   <body>
