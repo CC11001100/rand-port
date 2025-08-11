@@ -27,11 +27,21 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
   const [maxInputValue, setMaxInputValue] = useState(maxPort.toString());
   const [minError, setMinError] = useState('');
   const [maxError, setMaxError] = useState('');
+  
+  // 动态计算拖动条的范围
+  const [sliderMin, setSliderMin] = useState(1);
+  const [sliderMax, setSliderMax] = useState(65535);
 
   // 同步外部props变化到内部状态
   useEffect(() => {
     setMinInputValue(minPort.toString());
     setMaxInputValue(maxPort.toString());
+    
+    // 动态调整拖动条范围，确保包含当前的最小值和最大值
+    const newSliderMin = Math.min(1, minPort);
+    const newSliderMax = Math.max(65535, maxPort);
+    setSliderMin(newSliderMin);
+    setSliderMax(newSliderMax);
   }, [minPort, maxPort]);
 
   const presetRanges = [
@@ -78,6 +88,10 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
 
       if (!minError && !maxError) {
         onMinPortChange(numValue);
+        
+        // 动态调整拖动条范围
+        const newSliderMin = Math.min(sliderMin, numValue);
+        setSliderMin(newSliderMin);
       }
     } else if (value === '') {
       setMinError('');
@@ -97,6 +111,10 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
 
       if (!minError && !maxError) {
         onMaxPortChange(numValue);
+        
+        // 动态调整拖动条范围
+        const newSliderMax = Math.max(sliderMax, numValue);
+        setSliderMax(newSliderMax);
       }
     } else if (value === '') {
       setMaxError('');
@@ -145,8 +163,8 @@ const PortRangeSlider: React.FC<PortRangeSliderProps> = ({
             setMinError('');
             setMaxError('');
           }}
-          min={1}
-          max={65536}
+          min={sliderMin}
+          max={sliderMax}
           step={1}
           valueLabelDisplay="auto"
           disableSwap

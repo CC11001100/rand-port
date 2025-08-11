@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import React from 'react';
+import { HashRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Box, Container } from '@mui/material';
@@ -54,32 +54,12 @@ const theme = createTheme({
   },
 });
 
-// 根路径重定向组件
-const RootRedirect: React.FC = () => {
-  useEffect(() => {
-    // 如果当前在根路径且没有basename，重定向到带basename的路径
-    const basename = process.env.PUBLIC_URL || '';
-    if (basename && window.location.pathname === '/') {
-      window.location.href = basename;
-    }
-  }, []);
-
-  return null;
-};
-
 function App() {
-  // 获取基础路径，支持GitHub Pages部署
-  const basename = process.env.PUBLIC_URL || '';
-
-  // 如果在根路径且有basename，显示重定向组件
-  if (basename && window.location.pathname === '/') {
-    return <RootRedirect />;
-  }
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <Router basename={basename}>
+      <Router>
         <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
           <Navigation />
           <Container maxWidth="lg" sx={{ py: 4 }}>
