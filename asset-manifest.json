@@ -1,0 +1,10 @@
+{
+  "files": {
+    "main.js": "/rand-port/static/js/main.e435cba7.js",
+    "index.html": "/rand-port/index.html",
+    "main.e435cba7.js.map": "/rand-port/static/js/main.e435cba7.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.e435cba7.js"
+  ]
+}

@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>随机端口生成器</title>
+    <script type="text/javascript">
+      // GitHub Pages 单页应用路由处理
+      // 由于使用 HashRouter，直接重定向到根路径即可
+      var currentPath = window.location.pathname;
+      
+      // 如果路径不是根路径，重定向到根路径
+      if (currentPath !== '/rand-port/' && currentPath !== '/rand-port') {
+        // 重定向到根路径，让 HashRouter 处理路由
+        window.location.replace('/rand-port/');
+      }
+    </script>
+  </head>
+  <body>
+    <!-- 这个页面会在重定向过程中短暂显示 -->
+    <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
+      <h2>正在加载...</h2>
+      <p>如果页面没有自动跳转，请 <a href="/rand-port/">点击这里</a></p>
+    </div>
+  </body>
+</html> 
