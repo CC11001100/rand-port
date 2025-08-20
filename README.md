@@ -31,19 +31,13 @@ A modern, user-friendly web application for generating random available port num
 
 ## 📸 Screenshots
 
-### English Interface
-![Generate Ports - English](./images/generate-result-en.png)
+### Generate Random Ports
+![Generate Ports](./images/generate-result-en.png)
 *Generate random ports with customizable settings*
 
-![Used Ports Management - English](./images/used-ports-en.png)
+### Used Ports Management
+![Used Ports Management](./images/used-ports-en.png)
 *Manage and track your used ports*
-
-### Chinese Interface (中文界面)
-![Generate Ports - Chinese](./images/generate-result-zh.png)
-*生成随机端口 - 中文界面*
-
-![Used Ports Management - Chinese](./images/used-ports-zh.png)
-*已使用端口管理 - 中文界面*
 
 ## 🛠️ Technology Stack
 

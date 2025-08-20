@@ -31,18 +31,12 @@
 
 ## 📸 界面截图
 
-### 英文界面
-![生成端口 - 英文](./images/generate-result-en.png)
-*Generate random ports with customizable settings*
-
-![已使用端口管理 - 英文](./images/used-ports-en.png)
-*Manage and track your used ports*
-
-### 中文界面
-![生成端口 - 中文](./images/generate-result-zh.png)
+### 生成随机端口
+![生成端口](./images/generate-result-zh.png)
 *生成随机端口 - 可自定义设置*
 
-![已使用端口管理 - 中文](./images/used-ports-zh.png)
+### 已使用端口管理
+![已使用端口管理](./images/used-ports-zh.png)
 *管理和跟踪您的已使用端口*
 
 ## 🛠️ 技术栈
